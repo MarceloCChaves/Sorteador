@@ -47,6 +47,11 @@ export default function Home() {
       });
   };
 
+  const handleUpdateData = (user: Users) => {
+    localStorage.setItem('id', String(user.id));
+    localStorage.setItem('name', user.name);
+  }
+
   const handleDeleteUser = async (user: Users) => {
     await api
       .delete(`/users/${user.id}/`)
@@ -61,7 +66,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex items-center justify-center flex-col ">
+    <div className="flex items-center justify-center flex-col h-screen">
       <h1 className="text-3xl font-bold">Sorteador de nomes</h1>
       <form className="mt-5" onSubmit={handleCreateUser}>
         <div className="flex justify-between my-5">
@@ -70,6 +75,7 @@ export default function Home() {
             type="text"
             value={username}
             placeholder="Inserir nome"
+            autoFocus
             onChange={(e) => setUsername(e.target.value)}
           />
           <button
@@ -85,9 +91,9 @@ export default function Home() {
               <thead>
                 <tr>
                   <th className="border border-slate-600 px-10">ID</th>
-                  <th className="border border-slate-600 px-20">Name</th>
-                  <th className="border border-slate-600 px-20">Edit</th>
-                  <th className="border border-slate-600 px-20">Delete</th>
+                  <th className="border border-slate-600 px-20">Nome</th>
+                  <th className="border border-slate-600 px-20">Editar</th>
+                  <th className="border border-slate-600 px-20">Deletar</th>
                 </tr>
               </thead>
               {users.map((user) => {
@@ -97,13 +103,14 @@ export default function Home() {
                     id={user.id}
                     name={user.name}
                     handleDeleteUser={() => handleDeleteUser(user)}
-                  ></Box>
+                    handleUpdateData={() => handleUpdateData(user)}
+                  />
                 );
               })}
             </table>
             <button
               type="button"
-              className="rounded-full bg-blue-400 px-5 py-2 text-white w-full my-5"
+              className="rounded-full bg-blue-400 px-5 py-2 text-white my-5"
               onClick={() => setIsSorted(!isSorted)}
             >
               Sortear
