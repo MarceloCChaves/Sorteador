@@ -20,13 +20,10 @@ git clone https://github.com/MarceloCChaves/Sorteador.git
 npm install
 npm run dev
 ```
-- No arquivo package.json, caso não exista, vá em "scripts" e insira o seguinte comando abaixo:
-```
-"server": "json-server server.json -w --port 3333"
-```
+
 - Por fim, abra outro terminal e escreva o comando para rodar o json server
 ```
-yarn server
+json-server --watch db.json
 ```
 
 ## 👨 Autor
